@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .menu {
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+    <script>
+        // Your code goes here
+        var venu = Backbone.Model.extend({
+            defaults: {
+                color: 'white'
+            },
+            promptvenue: function () {
+                console.log("a user defined function");
+                var cssColor = prompt("Please enter a CSS color:");
+                this.set({
+                    color: cssColor
+                });
+                alert(cssColor);
+
+            },
+            initialize: function () {
+                console.log(" a new function is initialized");
+            },
+
+        });
+
+        var venu1 = new venu();
+        console.log(JSON.stringify(venu1));
+        var venu2 = new venu({
+            address: "cox town circle",
+            category: "1",
+        });
+        console.log(JSON.stringify(venu2));
+
+        var venu_sidebar = new venu();
+
+        venu_sidebar.on('change:color', function (model,color) {
+            console.log('the new color selected is'+model.get('color'));
+            console.log(venu_sidebar);
+            $('body').css("background-color",venu_sidebar.get('color')).html("<h1 style=\"text-align:center\">Happy Birthday To You</h1>");
+        });
+        venu_sidebar.promptvenue();        
+    </script>
+</body>
+
+</html>
