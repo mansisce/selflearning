@@ -15,6 +15,8 @@
     <div class="menu">
         
     </div>
+    <div class="result">
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
@@ -55,7 +57,98 @@
             console.log(venu_sidebar);
             $('body').css("background-color",venu_sidebar.get('color')).html("<h1 style=\"text-align:center\">Happy Birthday To You</h1>");
         });
-        venu_sidebar.promptvenue();        
+        venu_sidebar.promptvenue();   
+        
+        var Note = Backbone.Model.extend({
+
+          initialize: function() { var notepage = "some string", authorname= "sherlock homes" },
+
+          author: function() { return authorname; },
+
+          coordinates: function() { return true; },
+
+          allowedToEdit: function(account) {
+            return true;
+          }
+
+        });
+        
+        var PrivateNote = Note.extend({
+
+          allowedToEdit: function(account) {
+            return account.owns(this);
+          }
+
+        });     
+        console.log("what is private note");
+        console.log(PrivateNote);
+        console.log("what is  note");        
+        console.log("what is  note");        
+        console.log(Note);
+        
+        $('.result').html(PrivateNote);
+        
+        var notesup = Note.extend({
+            set: function(attributes, options) {
+                Backbone.Model.prototype.set.apply(this, arguments);
+                
+            }
+        });
+        
+        (function(){
+            var root = this;
+            var breaker = {};
+             var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
+             var
+                push             = ArrayProto.push,
+                slice            = ArrayProto.slice,
+                concat           = ArrayProto.concat,
+                toString         = ObjProto.toString,
+                hasOwnProperty   = ObjProto.hasOwnProperty;
+
+              var
+                nativeForEach      = ArrayProto.forEach,
+                nativeMap          = ArrayProto.map,
+                nativeReduce       = ArrayProto.reduce,
+                nativeReduceRight  = ArrayProto.reduceRight,
+                nativeFilter       = ArrayProto.filter,
+                nativeEvery        = ArrayProto.every,
+                nativeSome         = ArrayProto.some,
+                nativeIndexOf      = ArrayProto.indexOf,
+                nativeLastIndexOf  = ArrayProto.lastIndexOf,
+                nativeIsArray      = Array.isArray,
+                nativeKeys         = Object.keys,
+                nativeBind         = FuncProto.bind;            
+            var _ = function(obj) {
+                if (obj instanceof _) return obj;
+                if (!(this instanceof _)) return new _(obj);
+                this._wrapped = obj;
+              };
+
+            var each = _.each = _.forEach = function(obj, iterator, context) {
+            if (obj == null) return;
+            if (nativeForEach && obj.forEach === nativeForEach) {
+              obj.forEach(iterator, context);
+            } else if (obj.length === +obj.length) {
+              for (var i = 0, l = obj.length; i < l; i++) {
+                if (iterator.call(context, obj[i], i, obj) === breaker) return;
+              }
+            } else {
+              for (var key in obj) {
+                if (_.has(obj, key)) {
+                  if (iterator.call(context, obj[key], key, obj) === breaker) return;
+                }
+              }
+            }
+          };
+        }).call(this);
+        
+        var obj = _;
+        
+        var arr_each = ['apple','bannana','grapes'];
+        _.each(arr_each,alert,this);
+        
+
     </script>
 </body>
 
